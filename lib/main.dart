@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:threadtalk191521/screens/categories_page.dart';
 import 'package:threadtalk191521/screens/my_posts_page.dart';
 import 'package:threadtalk191521/screens/my_profile_page.dart';
 import 'package:threadtalk191521/splash_screen.dart';
@@ -35,7 +36,8 @@ class MyApp extends StatelessWidget {
         '/home': (context) => const HomePage(),
         '/login': (context) => const LoginPage(),
         '/profile': (context) => const MyProfilePage(),
-        '/my_posts': (context) => const MyPostsPage()
+        '/my_posts': (context) => const MyPostsPage(),
+        '/categories': (context) => const CategoriesPage()
       },
     );
   }

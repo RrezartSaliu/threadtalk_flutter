@@ -27,14 +27,16 @@ class _AddPostScreenState extends State<AddPostScreen> {
     // Convert the new post to a map
     Map<String, dynamic> newPostMap = newPost.toMap();
 
-    // Update the 'posts' field in the user's document by adding the new post
-    await userDocRef.update({
-      'posts': FieldValue.arrayUnion([newPostMap]),
-    });
+    // Explicitly set the document ID for the post in 'posts' collection
+    DocumentReference newPostRef = await postsCollection.add(newPostMap);
+    String postId = newPostRef.id;
 
-    // Add the new post to the 'posts' collection
-    await postsCollection.add(newPostMap);
+    // Update the 'posts' field in the user's document with the post ID
+    await userDocRef.update({
+      'posts': FieldValue.arrayUnion([postId]),
+    });
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -88,10 +90,13 @@ class _AddPostScreenState extends State<AddPostScreen> {
               ),
               onPressed: () async {
                 addPost(widget.myUser, Post(
+                  null,
                   title: titleController.text,
                   content: contentController.text,
                   user: widget.myUser,
                   category: selectedCategory,
+                  comments: [],
+                  likes: 0
                 )).then((_) {
                   // Navigation after the addPost operation is complete
                   Navigator.pushNamed(context, "/my_posts");

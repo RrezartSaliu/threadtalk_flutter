@@ -205,7 +205,8 @@ class _SignUpPageState extends State<SignUpPage> {
       'displayName': displayName,
       'posts': postsData,
       'friends': [],
-      'likedPosts': []
+      'likedPosts': [],
+      'comments': []
     });
   }
 }
