@@ -11,7 +11,7 @@ class ThreadTalkBar extends StatefulWidget implements PreferredSizeWidget {
 
   @override
   // TODO: implement preferredSize
-  Size get preferredSize => Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
 
 class _ThreadTalkBarState extends State<ThreadTalkBar>{

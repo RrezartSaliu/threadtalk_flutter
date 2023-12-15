@@ -2,15 +2,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 class Comment {
   final String body;
-  final User user;
+  final String user;
 
   Comment({required this.body, required this.user});
 
-  // Convert Post object to a map for Firestore
   Map<String, dynamic> toMap() {
     return {
       'body': body,
-      'user': user.uid,
+      'user': user,
     };
   }
 
@@ -25,5 +24,5 @@ class Comment {
     required String body,
     required String userId,
   })  : body = body,
-        user = FirebaseAuth.instance.currentUser!;
+        user = userId;
 }

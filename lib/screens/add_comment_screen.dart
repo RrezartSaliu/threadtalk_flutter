@@ -38,16 +38,14 @@ class _AddCommentScreenState extends State<AddCommentScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    print(widget.postId);
   }
 
   @override
   Widget build(BuildContext context) {
-    print(widget.myUser);
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add Comment', style: TextStyle(color: Colors.black)),
-        backgroundColor: Color(0xFF0DF099),
+        title: const Text('Add Comment', style: TextStyle(color: Colors.black)),
+        backgroundColor: const Color(0xFF0DF099),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -55,27 +53,25 @@ class _AddCommentScreenState extends State<AddCommentScreen> {
           children: [
             TextField(
               controller: bodyController,
-              decoration: InputDecoration(labelText: 'comment'),
+              decoration: const InputDecoration(labelText: 'comment'),
             ),
-            SizedBox(height: 10),
-            SizedBox(height: 20),
+            const SizedBox(height: 10),
+            const SizedBox(height: 20),
             ElevatedButton(
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(Color(0xFF0DF099)),
+                backgroundColor: MaterialStateProperty.all<Color>(const Color(0xFF0DF099)),
               ),
               onPressed: () async {
                 addComment(Comment(
                     body: bodyController.text,
-                    user: widget.myUser,
+                    user: widget.myUser.uid,
                 )).then((_) {
-                  // Navigation after the addPost operation is complete
                   Navigator.pushNamed(context, "/my_posts");
                 }).catchError((error) {
-                  // Handle errors, e.g., show a snackbar or display an error message
                   print('Error adding comment: $error');
                 });
               },
-              child: Text('Add Comment', style: TextStyle(color: Colors.black)),
+              child: const Text('Add Comment', style: TextStyle(color: Colors.black)),
             ),
           ],
         ),

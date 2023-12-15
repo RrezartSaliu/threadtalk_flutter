@@ -37,24 +37,24 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: null, // Set title to null to make room for flexibleSpace
+        title: null,
         centerTitle: true,
-        backgroundColor: Color(0xFF0DF099),
+        backgroundColor: const Color(0xFF0DF099),
         flexibleSpace: Center(
           child: Container(
-            margin: EdgeInsets.fromLTRB(8.0, 20.0, 8.0, 0.0),
-            width: 140.0, // Adjust the width as needed
-            height: 40.0, // Adjust the height as needed
-            padding: EdgeInsets.all(2.0),
+            margin: const EdgeInsets.fromLTRB(8.0, 20.0, 8.0, 0.0),
+            width: 140.0,
+            height: 40.0,
+            padding: const EdgeInsets.all(2.0),
             decoration: BoxDecoration(
-              color: Color(0xFFFAFBE9), // Color for the rectangle
+              color: const Color(0xFFFAFBE9),
               borderRadius: BorderRadius.circular(8.0),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.3), // Shadow color
+                  color: Colors.black.withOpacity(0.3),
                   spreadRadius: 0,
                   blurRadius: 5,
-                  offset: const Offset(0, 3), // Offset in the x, y axis
+                  offset: const Offset(0, 3)
                 ),
               ],
             ),
@@ -63,7 +63,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   'THREADTALK',
                   style: GoogleFonts.koulen(
                       fontSize: 26,
-                      textStyle: TextStyle(
+                      textStyle: const TextStyle(
                           fontWeight: FontWeight.bold
                       )
                   )
@@ -118,7 +118,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   width: double.infinity,
                   height: 45,
                   decoration: BoxDecoration(
-                    color: Color(0xFF0DF099),
+                    color: const Color(0xFF0DF099),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: const Center(
@@ -172,41 +172,32 @@ class _SignUpPageState extends State<SignUpPage> {
         password: password,
       );
 
-      // Update the user's display name
-
-      // Optionally, you can also update other user profile information like photoURL
-      // await userCredential.user!.updatePhotoURL('url_to_user_photo');
-
       await addPostsToUser(userCredential.user!, [], displayName);
 
-      // Return the user
       return userCredential.user;
     } on FirebaseAuthException catch (e) {
       print('Error: $e');
-      // Handle errors such as email already in use, weak password, etc.
       return null;
     } catch (e) {
       print('Error: $e');
-      // Handle other errors
       return null;
     }
   }
 
   Future<void> addPostsToUser(User user, List<Post> posts, String displayName) async {
-    // Reference to Firestore document for the user
     DocumentReference userDocRef = FirebaseFirestore.instance.collection('users').doc(user.uid);
 
-    // Convert posts to a list of maps
     List<Map<String, dynamic>> postsData = posts.map((post) => post.toMap()).toList();
 
-    print(user.displayName);
-    // Add the list of posts to the user's document
     await userDocRef.set({
       'displayName': displayName,
       'posts': postsData,
       'friends': [],
       'likedPosts': [],
-      'comments': []
+      'comments': [],
+      'bio': '',
+      'birthDate': null,
+      'profilePhoto': ''
     });
   }
 }

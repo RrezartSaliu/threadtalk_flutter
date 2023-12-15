@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:threadtalk191521/screens/sign_up_page.dart';
 
 import 'login_page.dart';
 
@@ -16,24 +17,24 @@ class _HomePageState extends State<HomePage>{
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: null, // Set title to null to make room for flexibleSpace
+        title: null,
         centerTitle: true,
-        backgroundColor: Color(0xFF0DF099),
+        backgroundColor: const Color(0xFF0DF099),
         flexibleSpace: Center(
           child: Container(
-            margin: EdgeInsets.fromLTRB(8.0, 20.0, 8.0, 0.0),
-            width: 140.0, // Adjust the width as needed
-            height: 40.0, // Adjust the height as needed
-            padding: EdgeInsets.all(2.0),
+            margin: const EdgeInsets.fromLTRB(8.0, 20.0, 8.0, 0.0),
+            width: 140.0,
+            height: 40.0,
+            padding: const EdgeInsets.all(2.0),
             decoration: BoxDecoration(
-              color: Color(0xFFFAFBE9), // Color for the rectangle
+              color: const Color(0xFFFAFBE9),
               borderRadius: BorderRadius.circular(8.0),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.3), // Shadow color
+                  color: Colors.black.withOpacity(0.3),
                   spreadRadius: 0,
                   blurRadius: 5,
-                  offset: const Offset(0, 3), // Offset in the x, y axis
+                  offset: const Offset(0, 3),
                 ),
               ],
             ),
@@ -42,7 +43,7 @@ class _HomePageState extends State<HomePage>{
                 'THREADTALK',
                 style: GoogleFonts.koulen(
                   fontSize: 26,
-                  textStyle: TextStyle(
+                  textStyle: const TextStyle(
                     fontWeight: FontWeight.bold
                   )
                 )
@@ -60,20 +61,19 @@ class _HomePageState extends State<HomePage>{
               'Connecting minds, sparking conversations',
               textAlign: TextAlign.center,
               style: GoogleFonts.lexend(
-                textStyle: TextStyle(
+                textStyle: const TextStyle(
                   fontSize: 24,
                 ),
               )
             ),
-            SizedBox(height: 20), // Spacer
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                // Handle login button press
                 Navigator.pushAndRemoveUntil(
                     context, MaterialPageRoute(builder: (context) => const LoginPage()), (route) => false);
               },
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(Color(0xFF0DF099)),
+                backgroundColor: MaterialStateProperty.all<Color>(const Color(0xFF0DF099)),
               ),
               child: Text(
                 'LOGIN',
@@ -83,13 +83,14 @@ class _HomePageState extends State<HomePage>{
                 ),
               ),
             ),
-            SizedBox(height: 20), // Spacer
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                // Handle login button press
+                Navigator.pushAndRemoveUntil(
+                    context, MaterialPageRoute(builder: (context) => const SignUpPage()), (route) => false);
               },
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(Color(0xFF0DF099)),
+                backgroundColor: MaterialStateProperty.all<Color>(const Color(0xFF0DF099)),
               ),
               child: Text(
                 'REGISTER',

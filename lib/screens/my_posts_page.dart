@@ -34,11 +34,9 @@ class _MyPostsPageState extends State<MyPostsPage> {
   Future<void> _getUserData() async {
     DocumentSnapshot userDocSnapshot = await FirebaseFirestore.instance.collection('users').doc(currentUser.uid).get();
 
-    // Access data from the DocumentSnapshot
     Map<String, dynamic>? userDataInner = userDocSnapshot.data() as Map<String, dynamic>?;
 
     if (userDataInner != null) {
-      // Print or use the data as needed
       setState(() {
         userData = userDataInner;
       });
@@ -48,38 +46,31 @@ class _MyPostsPageState extends State<MyPostsPage> {
   Future<List<Post>> _getPostsData() async {
     DocumentSnapshot userDocSnapshot = await FirebaseFirestore.instance.collection('users').doc(currentUser.uid).get();
 
-    // Access data from the DocumentSnapshot
     Map<String, dynamic>? userDataInner = userDocSnapshot.data() as Map<String, dynamic>?;
 
     List<Post> posts = [];
 
     if (userDataInner != null) {
-      // Extract the 'posts' field from the user data
       List<String>? userPostsIds = List<String>.from(userDataInner['posts'] ?? []);
 
       if (userPostsIds != null && userPostsIds.isNotEmpty) {
-        // Use the post IDs to retrieve the actual post data from the 'posts' collection
         posts = await Future.wait(userPostsIds.map((postId) async {
           DocumentSnapshot postSnapshot = await FirebaseFirestore.instance.collection('posts').doc(postId).get();
-          print('id: '+'${postSnapshot.id}');
           Map<String, dynamic>? postMap = postSnapshot.data() as Map<String, dynamic>?;
-          print('postid: '+'${postMap?['comments']}');
           if (postMap != null) {
             return Post.fromMap(postSnapshot.id, postMap);
           } else {
-            // Handle the case where post data is missing or invalid
-            return Post(null, title: 'Invalid Post', content: 'Invalid Post Data', user: currentUser, category: 'Invalid', comments: [], likes: 0);
+            return Post(null, title: 'Invalid Post', content: 'Invalid Post Data', user: currentUser.uid, category: 'Invalid', comments: [], likes: 0);
           }
         }));
       }
     }
 
-    // Use setState to initialize userPostsFuture
     setState(() {
       userPostsFuture = Future.value(posts);
     });
 
-    return posts; // Return posts from the function
+    return posts;
   }
 
 
@@ -103,11 +94,10 @@ class _MyPostsPageState extends State<MyPostsPage> {
             child: Container(
               decoration: BoxDecoration(
                 border: Border.all(width: 2.0, color: Colors.black),
-                color: const Color(0xFFFFF1F1), // Adjust the color as needed
+                color: const Color(0xFFFFF1F1),
                 borderRadius:
-                    BorderRadius.circular(10.0), // Adjust the radius as needed
+                    BorderRadius.circular(10.0),
               ),
-              // ... rest of the container
               child: Column(children: [
                 const SizedBox(height: 10),
                 GestureDetector(
@@ -121,7 +111,6 @@ class _MyPostsPageState extends State<MyPostsPage> {
                                 AddPostScreen(myUser: currentUser)),
                       );
                     } else {
-                      print('Current user is null');
                     }
                   },
                   child: Container(
@@ -147,7 +136,7 @@ class _MyPostsPageState extends State<MyPostsPage> {
                     future: userPostsFuture,
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
-                        return CircularProgressIndicator();
+                        return const CircularProgressIndicator();
                       } else if (snapshot.hasError) {
                         return Text('Error: ${snapshot.error}');
                       } else {
@@ -160,8 +149,6 @@ class _MyPostsPageState extends State<MyPostsPage> {
               ]),
             ),
           ),
-
-          // Black overlay
           if(isMenuOpen)
           MenuOverlay(
             toggleMenu: () {

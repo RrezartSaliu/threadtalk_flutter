@@ -21,11 +21,11 @@ class _CollapsibleMenuItemState extends State<CollapsibleMenuItem> {
       children: [
         GestureDetector(
           onTap: () {
-            //TODO categories screen
+            //TODO: categories screen
             Navigator.pushNamed(context, "/categories");
           },
           child: Container(
-            padding: EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(10.0),
             height: 50,
             decoration: BoxDecoration(
               color: Colors.white,
@@ -36,7 +36,7 @@ class _CollapsibleMenuItemState extends State<CollapsibleMenuItem> {
               children: [
                 Text(
                   widget.text,
-                  style: TextStyle(fontSize: 18),
+                  style: const TextStyle(fontSize: 18),
                 ),
                 IconButton(onPressed: (){setState(() {
                   isExpanded = !isExpanded;
@@ -51,19 +51,18 @@ class _CollapsibleMenuItemState extends State<CollapsibleMenuItem> {
         ),
         if (isExpanded)
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 20.0),
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: widget.subItems
                   .map((subItem) => GestureDetector(
                 onTap: () {
-                  // Handle sub-item press
                 },
                 child: Container(
-                  padding: EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.all(10.0),
                   child: Text(
                     subItem,
-                    style: TextStyle(fontSize: 18, color: Colors.white),
+                    style: const TextStyle(fontSize: 18, color: Colors.white),
                   ),
                 ),
               ))

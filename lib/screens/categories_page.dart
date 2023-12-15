@@ -16,36 +16,40 @@ State<CategoriesPage> createState() => _CategoriesPageState();
 class _CategoriesPageState extends State<CategoriesPage>{
   bool isMenuOpen = false;
 
-  Widget CategoryComponent(String categories, IconData icon){
-    return Container(
-      width: 300,
-      height: 50,
-      decoration: BoxDecoration(
-          border: Border.all(color: Colors.black, width: 2.0),
-          borderRadius: BorderRadius.circular(23.0)
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Padding(
-            padding: EdgeInsets.only(left: 16.0),
-            child: Text(
-              categories,
-              style: const TextStyle(
-                // Add your text style here
+  Widget CategoryComponent(String category, IconData icon){
+    return GestureDetector(
+      onTap: (){
+        Navigator.pushNamed(context, "/categoriesposts/$category");
+      },
+      child: Container(
+        width: 300,
+        height: 50,
+        decoration: BoxDecoration(
+            border: Border.all(color: Colors.black, width: 2.0),
+            borderRadius: BorderRadius.circular(23.0)
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 16.0),
+              child: Text(
+                  category,
+                  style: GoogleFonts.lexend(
+                      fontSize: 26
+                  )
               ),
             ),
-          ),
-          IconButton(
-            onPressed: () {
-              // Add your icon tap action here
-            },
-            icon: Icon(
-              icon, // Replace 'your_icon' with the desired icon
-              // Add your icon style here
-            ),
-          ),
-        ],
+            Padding(
+                padding: const EdgeInsets.only(right: 16.0),
+                child: Icon(
+                  icon,
+                  size: 28,
+                  color: Colors.red
+                ),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -62,8 +66,6 @@ class _CategoriesPageState extends State<CategoriesPage>{
       ),
       body: Stack(
         children: [
-          // Your main content goes here
-
           Positioned(
             left: 20.0,
             right: 20.0,
@@ -72,10 +74,9 @@ class _CategoriesPageState extends State<CategoriesPage>{
             child: Container(
               decoration: BoxDecoration(
                 border: Border.all(width: 2.0, color: Colors.black),
-                color: Color(0xFFFFF1F1), // Adjust the color as needed
-                borderRadius: BorderRadius.circular(10.0), // Adjust the radius as needed
+                color: const Color(0xFFFFF1F1),
+                borderRadius: BorderRadius.circular(10.0),
               ),
-              // ... rest of the container
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -87,22 +88,21 @@ class _CategoriesPageState extends State<CategoriesPage>{
                         color: Colors.black
                     ),
                   ),
-                  SizedBox(height: 15),
+                  const SizedBox(height: 15),
                   CategoryComponent('Science', FontAwesomeIcons.flask),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   CategoryComponent('Sport', Icons.sports_basketball),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   CategoryComponent('Technology', FontAwesomeIcons.laptop),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   CategoryComponent('Fashion', FontAwesomeIcons.shirt),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   CategoryComponent('Movies', FontAwesomeIcons.film)
                 ],
               ),
             ),
           ),
 
-          // Black overlay
           if(isMenuOpen)
             MenuOverlay(
               toggleMenu: () {

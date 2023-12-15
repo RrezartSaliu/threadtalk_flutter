@@ -15,23 +15,18 @@ class AddPostScreen extends StatefulWidget {
 class _AddPostScreenState extends State<AddPostScreen> {
   final TextEditingController titleController = TextEditingController();
   final TextEditingController contentController = TextEditingController();
-  String selectedCategory = 'Science'; // Default category
+  String selectedCategory = 'Science';
 
   Future<void> addPost(User user, Post newPost) async {
-    // Create a reference to the user's document
     DocumentReference userDocRef = FirebaseFirestore.instance.collection('users').doc(user.uid);
 
-    // Create a reference to the 'posts' collection
     CollectionReference postsCollection = FirebaseFirestore.instance.collection('posts');
 
-    // Convert the new post to a map
     Map<String, dynamic> newPostMap = newPost.toMap();
 
-    // Explicitly set the document ID for the post in 'posts' collection
     DocumentReference newPostRef = await postsCollection.add(newPostMap);
     String postId = newPostRef.id;
 
-    // Update the 'posts' field in the user's document with the post ID
     await userDocRef.update({
       'posts': FieldValue.arrayUnion([postId]),
     });
@@ -40,11 +35,10 @@ class _AddPostScreenState extends State<AddPostScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.myUser);
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add Post', style: TextStyle(color: Colors.black)),
-        backgroundColor: Color(0xFF0DF099),
+        title: const Text('Add Post', style: TextStyle(color: Colors.black)),
+        backgroundColor: const Color(0xFF0DF099),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -52,14 +46,14 @@ class _AddPostScreenState extends State<AddPostScreen> {
           children: [
             TextField(
               controller: titleController,
-              decoration: InputDecoration(labelText: 'Title'),
+              decoration: const InputDecoration(labelText: 'Title'),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             TextField(
               controller: contentController,
-              decoration: InputDecoration(labelText: 'Content'),
+              decoration: const InputDecoration(labelText: 'Content'),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             DropdownButton<String>(
               value: selectedCategory,
               items: [
@@ -81,31 +75,29 @@ class _AddPostScreenState extends State<AddPostScreen> {
                   });
                 }
               },
-              hint: Text('Select Category'),
+              hint: const Text('Select Category'),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(Color(0xFF0DF099)),
+                backgroundColor: MaterialStateProperty.all<Color>(const Color(0xFF0DF099)),
               ),
               onPressed: () async {
                 addPost(widget.myUser, Post(
                   null,
                   title: titleController.text,
                   content: contentController.text,
-                  user: widget.myUser,
+                  user: widget.myUser.uid,
                   category: selectedCategory,
                   comments: [],
                   likes: 0
                 )).then((_) {
-                  // Navigation after the addPost operation is complete
                   Navigator.pushNamed(context, "/my_posts");
                 }).catchError((error) {
-                  // Handle errors, e.g., show a snackbar or display an error message
                   print('Error adding post: $error');
                 });
               },
-              child: Text('Add Post', style: TextStyle(color: Colors.black)),
+              child: const Text('Add Post', style: TextStyle(color: Colors.black)),
             ),
           ],
         ),

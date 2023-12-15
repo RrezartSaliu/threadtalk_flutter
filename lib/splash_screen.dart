@@ -27,11 +27,11 @@ class _SplashScreenState extends State<SplashScreen> {
     return const Scaffold(
       body: Center(
         child: Text(
-          "Welcome To The Schedule App",
+          "Welcome To ThreadTalk",
           style: TextStyle(
-              color: Colors.blue,
+              color: Color(0xFF0DF099),
               fontWeight: FontWeight.bold,
-              fontSize: 18
+              fontSize: 24
           ),
         ),
       ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'package:threadtalk191521/firebase_auth_services.dart';
+import 'package:threadtalk191521/screens/search_screen.dart';
 import 'collapible_menu_item.dart';
 
 
@@ -38,26 +39,25 @@ class _MenuOverlayState extends State<MenuOverlay> {
                     padding: const EdgeInsets.symmetric(horizontal: 20.0),
                     child: ListView(
                       children: [
-                        SizedBox(height: 30),
+                        const SizedBox(height: 30),
                         SearchBar(),
-                        SizedBox(height: 20),
-                        MenuItem(text: 'Trending now'),
-                        SizedBox(height: 20),
+                        const SizedBox(height: 20),
                         MenuItem(text: 'Profile', onPressed: (){
                           widget.toggleMenu();
                           Navigator.pushNamed(context, '/profile');
                         },),
-                        SizedBox(height: 20),
+                        const SizedBox(height: 20),
                         MenuItem(text: 'My Posts', onPressed: () {
-                          widget.toggleMenu(); // Call the callback to toggle the menu
+                          widget.toggleMenu();
                           Navigator.pushNamed(context, "/my_posts");
                         },),
-                        SizedBox(height: 20),
+                        const SizedBox(height: 20),
                         CollapsibleMenuItem(text: 'Categories',
                             subItems: ['Science', 'Sport', 'Technology', 'Fashion', 'Movies']),
-                        SizedBox(height: 20),
-                        MenuItem(text: 'Logout', onPressed: () {
-                          // Handle logout button press
+                        const SizedBox(height: 20),
+                        MenuItem(text: 'Logout', onPressed: () async {
+                          await FirebaseAuthService().signOut();
+                          Navigator.of(context).pushNamedAndRemoveUntil('/login', (route) => false);
                         }),
                       ],
                     ),
@@ -105,11 +105,19 @@ class SearchBar extends StatelessWidget {
         borderRadius: BorderRadius.circular(8.0),
       ),
       child: TextField(
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
           hintText: 'Search...',
           prefixIcon: Icon(Icons.search),
           border: InputBorder.none,
         ),
+        onSubmitted: (String value) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) =>
+                SearchPage(toSearch: value)
+            )
+          );
+        },
       ),
     );
   }
