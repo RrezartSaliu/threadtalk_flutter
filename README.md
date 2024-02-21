@@ -1,16 +1,37 @@
-# threadtalk191521
+# ThreadTalk
 
-A new Flutter project.
+ThreadTalk is an application where users can create accounts, connect with other users and create topics on different categories, also being able to interact by commenting or liking the topic. 
 
-## Getting Started
+# Getting started
 
-This project is a starting point for a Flutter application.
+After cloning the project the dependencies should be resolved with the command:
 
-A few resources to get you started if this is your first Flutter project:
+<code>flutter pub get</code>
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Then the application will be ready to run.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+# Web services
+
+Authentication, Storage and Database are used from Firebase of Google.
+
+# Software Design Patterns 
+
+BLoC, Singleton, Builder, Observer...
+
+# Functionalities
+
+<ul>
+  <li>Login/Register</li>
+  <li>Create Topic</li>
+  <li>Interact with Topic</li>
+  <li>Choose Topics by Category</li>
+  <li>Edit profile picture from camera or gallery</li>
+  <li>Show current location</li>
+</ul>
+
+The application uses Custom UI elements, location services and camera services
+Open Street Map was used to get all the universities in the Balkans
+
+# Video
+
+https://www.mediafire.com/file/muz3uwl0nu71sgt/video.mp4/file
